@@ -1,0 +1,16 @@
+const shipping = require('./data').shipping
+
+module.exports = {
+    details(req,resp){
+        data={
+            data:[shipping],
+            msg:'获取商品信息成功',
+            returnCode: 200
+        }
+        data = JSON.stringify(data)
+        resp.send(data)
+    },
+    code(req,resp){
+
+    }
+}

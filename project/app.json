@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/shouye/shouye",
+    "pages/details/details",
+    "pages/myCenter/myCenter",
+    "pages/shoppingCart/shoppingCart",
+    "pages/dingdan/dingdan"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "white",
+    "navigationBarTitleText": "商城",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/shouye/shouye",
+        "text": "首页",
+        "iconPath": "./images/shouye.png",
+        "selectedIconPath": "./images/shouye1.png"
+      },
+      {
+        "pagePath": "pages/shoppingCart/shoppingCart",
+        "text": "购物车",
+        "iconPath": "./images/gouwuche.png",
+        "selectedIconPath": "./images/gouwuche1.png"
+      },
+      {
+        "pagePath": "pages/myCenter/myCenter",
+        "text": "我的",
+        "iconPath": "./images/icon03.png",
+        "selectedIconPath": "./images/icon031.png"
+      }
+    ],
+    "selectedColor": "#0688F1"
+  }
+}

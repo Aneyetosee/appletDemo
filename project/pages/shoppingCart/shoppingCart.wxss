@@ -1,0 +1,93 @@
+/* pages/shoppingCart/shoppingCart.wxss */
+.shopItem{
+  width: 100%;
+  height: 100px;
+  position: relative;
+  background-color: rgba(180, 172, 197, 0.1);
+  margin: 5px 0px;
+}
+.imgBox image{
+  width: 70%;
+}
+.imgBox{
+  display: flex;
+  width: 40%;
+  float: left;
+  margin: 2% 10px;
+  align-items: center;
+}
+.checkbox{
+  transform: scale(0.7);
+}
+.shopItemNum{
+  display: flex;
+  text-align: center;
+  margin-top: 30px;
+}
+.shopItemNum>i{
+  border: 1px black solid;
+  width: 20px;
+}
+.shopItemNum>input{
+  width: 40px;
+  border-top: 1px black solid;
+  border-bottom: 1px black solid;
+}
+.icon-shanchu{
+  font-size: 20px;
+  position: absolute;
+  color: rgba(0, 0, 0, 0.7);
+  bottom: 10px;
+  left: 90%;
+}
+.price{
+  position: absolute;
+  right: 2%;
+  top:0px;
+  color: red;
+}
+.goodsNum{
+  display: inline-block;
+  width: 38%;
+  font-size: 14px;
+}
+#null{
+  text-align: center;
+  line-height: 60px;
+  margin-top: 90px;
+}
+.icon-gouwuche{
+  font-size: 60px;
+}
+#goShouye{
+  background-color: lightskyblue;
+  width: 40%;
+  margin: auto;
+  border-radius: 5px;
+  height: 46px;
+  line-height: 46px;
+  color: white;
+  cursor: pointer;
+}
+#jiesuan{
+  width: 100%;
+  height: 50px;
+  background-color:lightcyan;
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#buy{
+  width: 30%;
+  background-color: red;
+  height: 50px;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+}
+.totalPrice{
+  color: red;
+}

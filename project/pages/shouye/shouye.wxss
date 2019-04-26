@@ -1,0 +1,72 @@
+/* pages/day01/day01.wxss */
+.lunboImg{
+  width: 100%;
+  height: 150px;
+}
+#swiper{
+  height: 150px;
+}
+#two,#three{
+  width: 96%;
+  margin: 10px auto;
+}
+#myTitle,#three_myTitle{
+  display: flex;
+  justify-content: space-between;
+  border-left: 5px green solid;
+  height: 34px;
+  align-items: center;
+  padding: 2%;
+}
+#quanbujingpin,#three_quanbujingpin{
+  color: green;
+}
+
+#two_imgBox{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-around;
+  
+}
+.imgbox>text{
+  background-color: rgba(103, 117, 102, 0.6);
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  color: white;
+  font-size: 14px;
+}
+.imgbox{
+  width: 46%;
+  height: 110px;
+  margin: 3px auto;
+  overflow: hidden;
+  position: relative;
+}
+.two_img{
+  width: 100%;
+}
+
+#three_imgOne{
+  width: 100%;
+}
+#three_imgTwo{
+  width: 40px;
+  border-radius: 20px;
+  position: absolute;
+  left: 80%;
+  bottom: -10px
+}
+#three_two{
+  position: relative
+}
+#three_three>text:nth-of-type(1){
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+}
+#three_three>text:nth-of-type(2){
+  display: block;
+  font-size: 14px;
+}

@@ -1,0 +1,47 @@
+<!--pages/day01/day01.wxml-->
+<view>
+  <swiper
+    indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}"
+    interval="{{interval}}"
+    duration="{{duration}}"
+    circular="{{circular}}"
+    id='swiper'
+  >
+    <block wx:for="{{imgUrls}}" wx:key="index">
+      <swiper-item>
+        <image class='lunboImg' src="{{item}}"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view>
+  <view id='two'>
+    <view id='myTitle'>
+      <text>精品推荐</text>
+      <text id='quanbujingpin'>全部精品</text>
+    </view>
+  </view>
+  <view id='two_imgBox'>
+    <view class='imgbox' wx:for="{{tuijian}}" wx:key="index" catchtap='goodsDetails' data-shoppingId="{{item.shippingId}}">
+      <image class='two_img' src="{{item.shippingPic_one}}" mode='widthFix'/> 
+      <text>{{item.shippingName}}</text>
+    </view>
+  </view>
+</view>
+<view>
+  <view id='three'>
+    <view id='three_myTitle'>
+      <text>畅销榜单</text>
+      <text id='three_quanbujingpin'>全部畅销</text>
+    </view>
+  </view>
+  <view id='three_two'>
+    <image src="{{tuijian[0].shippingPic_one}}" id='three_imgOne' mode='widthFix'/>
+  </view>
+  <view id='three_three'>
+    <text>{{tuijian[0].shippingName}}</text>
+    <text>{{tuijian[0].shippingMsg}}</text>
+  </view>
+</view>
+

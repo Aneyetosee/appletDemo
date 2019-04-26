@@ -1,0 +1,32 @@
+<!--pages/shoppingCart/shoppingCart.wxml-->
+<view>
+  <view wx:if="{{shoppingCartArr.length>0}}">
+    <view wx:for="{{shoppingCartArr}}" wx:key="index" class='shopItem'>
+      <view class='imgBox'>
+        <!-- <checkbox-group bindchange="checkboxChange"> -->
+          <checkbox class='checkbox' value='{{item.shippingId}}' data-shippingId='{{item.shippingId}}' checked='{{item.checked}}' bindtap='checkboxChange'></checkbox>
+        <!-- </checkbox-group> -->
+          <image src='{{item.shippingPic_one}}' mode='widthFix'></image>
+      </view>
+      <view class='goodsNum'>{{item.shippingName}}</view>
+      <view class='price'>￥{{item.shippingPrice}}</view>
+      <view class='shopItemNum'>
+      <i>-</i><input value='{{item.shippingNum}}'></input><i>+</i>
+      <icon class='iconfont icon-shanchu' catchtap='del'data-shopID="{{item.shippingId}}"></icon>
+    </view>
+  </view>
+  <view id='jiesuan'>
+    <checkbox-group bindchange="changeBox">
+      <checkbox class='checkbox'></checkbox>
+    </checkbox-group>
+    <text class='totalPrice'>￥{{totalPrice}}</text>
+    <text id='buy' bindtap='jiesuan'>结算</text>
+  </view>
+  </view>
+  <view wx:else id='null'>
+    <icon class='iconfont icon-gouwuche'></icon>
+    <view>购物车是空的~</view>
+    <view id='goShouye' catchtap='goShouye'>去首页</view>
+  </view>
+</view>
+

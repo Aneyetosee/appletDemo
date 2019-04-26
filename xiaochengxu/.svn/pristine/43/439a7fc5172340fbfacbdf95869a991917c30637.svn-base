@@ -1,0 +1,8 @@
+const express = require('express')
+const router = express.Router()
+const pageCtrl=require("../controller/pageCtrl")
+
+router.post('/details/details',pageCtrl.details)
+router.post('/inShoppingCart/inShoppingCart',pageCtrl.shoppingCart)
+
+module.exports = router

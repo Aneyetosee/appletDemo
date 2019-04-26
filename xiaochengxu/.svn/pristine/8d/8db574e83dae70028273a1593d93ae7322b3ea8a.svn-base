@@ -1,0 +1,36 @@
+const shipping = require('./data').shipping
+const shoppingCart = require('./data').shoppingCart
+
+module.exports = {
+    details(req,resp){
+        let shoppingId=req.body.shoppingid
+        let arr=[]
+        for (let i=0;i<shipping.length;i++) {
+            if (shoppingId==shipping[i].shippingId){
+                arr=shipping[i]
+                break;
+            }
+        }
+        data={
+            data:[arr],
+            msg:'获取商品信息成功',
+            returnCode: 200
+        }
+        data = JSON.stringify(data)
+        resp.send(data)
+    },
+    shoppingCart(req,resp){
+        let {shippingId,user}=req.body
+        if ({shippingId,user}) {
+            shoppingCart.push({shippingId,user})
+            console.log(shoppingCart);
+            data={
+                data:[],
+                msg:'获取商品信息成功',
+                returnCode: 200
+            }
+            data = JSON.stringify(data)
+            resp.send(data)
+        }
+    }
+}

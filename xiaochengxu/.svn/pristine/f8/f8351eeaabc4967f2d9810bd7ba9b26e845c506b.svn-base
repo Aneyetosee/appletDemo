@@ -1,0 +1,20 @@
+const shipping = require('./data').shipping
+
+module.exports = {
+    shouye(req,resp){
+        let src = ['/images/banner1.jpg','/images/banner2.jpg','/images/banner3.jpg','/images/banner4.jpg']
+        // console.log(shipping)
+        data={
+            data:[src,shipping],
+            msg:'获取轮播成功',
+            returnCode: 200
+        }
+        data = JSON.stringify(data)
+        resp.send(data)
+    },
+    setOrder(req,resp){
+        console.log(req.body)
+        let {user,shippingID,shippingNum,shippingPrice} =req.body
+        
+    }
+}

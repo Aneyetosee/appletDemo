@@ -1,0 +1,222 @@
+const shipping = require('./data').shipping
+const shoppingCart = require('./data').shoppingCart
+const order = require('./data').order
+const orderDetails = require('./data').orderDetails
+
+module.exports = {
+    details(req,resp){
+        let shoppingId=req.body.shoppingid
+        let arr=[]
+        for (let i=0;i<shipping.length;i++) {
+            if (shoppingId==shipping[i].shippingId){
+                arr=shipping[i]
+                break;
+            }
+        }
+        data={
+            data:[arr],
+            msg:'获取商品信息成功',
+            returnCode: 200
+        }
+        data = JSON.stringify(data)
+        resp.send(data)
+    },
+    shoppingCart(req,resp){
+        let {shippingId,user}=req.body
+        if (shoppingCart.length>0){
+            let shippingIdArr = []
+            for (let i=0;i<shoppingCart.length;i++) {
+                shippingIdArr.push(shoppingCart[i].shippingId)
+            }
+            for(let i=0;i<shoppingCart.length;i++){
+                if (shoppingCart[i].user===user&&shoppingCart[i].shippingId===shippingId) {
+                    let arr={}
+                    arr.shippingNum=shoppingCart[i].shippingNum
+                    shoppingCart.splice(i,1)
+                    for (let m=0;m<shipping.length;m++) {
+                        if (shippingId==shipping[m].shippingId){
+                            arr.shippingId=shipping[m].shippingId
+                            arr.shippingName=shipping[m].shippingName
+                            arr.shippingPic_one=shipping[m].shippingPic_one
+                            arr.shippingPrice=shipping[m].shippingPrice
+                            arr.shippingNum+=1
+                            arr.user=user
+                            break;
+                        }
+                    }
+                    shoppingCart.push(arr)
+                    data={
+                        msg:'该商品已添加进购物车',
+                        returnCode: -1
+                    }
+                    data = JSON.stringify(data)
+                    resp.send(data)
+                    break;
+                }else if(shoppingCart[i].user===user&&shippingIdArr.indexOf(shippingId)===-1){
+                    let arr={}
+                    for (let m=0;m<shipping.length;m++) {
+                        if (shippingId==shipping[m].shippingId){
+                            arr.shippingId=shipping[m].shippingId
+                            arr.shippingName=shipping[m].shippingName
+                            arr.shippingPic_one=shipping[m].shippingPic_one
+                            arr.shippingPrice=shipping[m].shippingPrice
+                            arr.shippingNum=1
+                            arr.user=user
+                            break;
+                        }
+                    }
+                    shoppingCart.push(arr)
+                    data={
+                        msg:'添加成功',
+                        returnCode: 200
+                    }
+                    data = JSON.stringify(data)
+                    resp.send(data)
+                    break;
+                }
+            }
+        } else {
+            let arr={}
+            for (let m=0;m<shipping.length;m++) {
+                if (shippingId==shipping[m].shippingId){
+                    arr.shippingId=shipping[m].shippingId
+                    arr.shippingName=shipping[m].shippingName
+                    arr.shippingPic_one=shipping[m].shippingPic_one
+                    arr.shippingPrice=shipping[m].shippingPrice
+                    arr.shippingNum=1
+                    arr.user=user
+                    break;
+                }
+            }
+            shoppingCart.push(arr)
+            data={
+                msg:'添加成功',
+                returnCode: 200
+            }
+            data = JSON.stringify(data)
+            resp.send(data)
+        }
+    },
+    shoppingCartData(req,resp){
+        let {user}=req.body
+        let arr=[]
+        if (user){
+            for (let i=0;i<shoppingCart.length;i++) {
+                if (shoppingCart[i].user===user) {
+                    arr.push(shoppingCart[i])
+                }
+            }
+            data={
+                data:arr,
+                msg:'添加成功',
+                returnCode: 200
+            }
+            data = JSON.stringify(data)
+            resp.send(data)
+        }
+    },
+    delshoppingCart(req,resp){
+        let {shippingId,user}=req.body
+        for(let i=0;i<shoppingCart.length;i++) {
+            if (shoppingCart[i].user === user && shoppingCart[i].shippingId === shippingId) {
+                shoppingCart.splice(i,1)
+                data={
+                    data:shoppingCart,
+                    msg:'删除成功',
+                    returnCode: 200
+                }
+                data = JSON.stringify(data)
+                resp.send(data)
+                break;
+            }
+        }
+    },
+    //生成购物车订单
+    setorderData(req,resp){
+        let {user,shopArr}=req.body
+        let time = new Date()
+        let shippingIDArr=[]
+        let shippingNumArr=[]
+        let shippingTotalPrice=0
+        for(let i=0;i<shopArr.length;i++){
+            shippingIDArr.push(shopArr[i].shippingId)
+            shippingNumArr.push(shopArr[i].shippingNum)
+            shippingTotalPrice+=shopArr[i].shippingNum*shopArr[i].shippingPrice
+        }
+        let thisOrder = {
+            orderNum: time.getTime(),
+            user: user,
+            shippingID: shippingIDArr,
+            shippingNum: shippingNumArr,
+            orderTime: time.getTime()
+        }
+        let thisOrderDetails = {
+            orderNum: time.getTime(),
+            user: user,
+            address: '',
+            phone: '',
+            name: '',
+            money: shippingTotalPrice,
+            payTime: '',
+            payMoney: '',
+            state: '10'
+        }
+        order.push(thisOrder)
+        orderDetails.push(thisOrderDetails)
+        let data = {
+            returnCode: 200,
+            msg: '加入订单成功',
+            data: {
+                orderNum: time.getTime()
+            }
+        }
+        data = JSON.stringify(data)
+        resp.send(data)
+    },
+    //获取订单数据
+    getorderData(req,resp){
+        let thisOrderNum = req.body.orderNum
+        let thisOrderData =[]
+        let shippingData =[]
+        for (let i = 0; i < order.length; i++) {
+            if (order[i] && order[i].orderNum == thisOrderNum) {
+                thisOrderData.push(order[i])
+            }
+        }
+        for (let i = 0; i < shipping.length; i++) {
+            for (let j=0;j<thisOrderData.length;j++){
+                for (let m=0;m<thisOrderData[j].shippingID.length;m++) {
+                    if (thisOrderData[j] && shipping[i].shippingId == thisOrderData[j].shippingID[m]) {
+                        shippingData.push(shipping[i])
+                    }
+                }
+            }
+        }
+        if (thisOrderData[0]) {
+            var data = {
+                returnCode: 200,
+                msg: '订单查询成功',
+                data: []
+            }
+            for(let i=0;i<thisOrderData[0].shippingID.length;i++){
+                data.data.push({
+                    orderNum: thisOrderData[0].orderNum,
+                    orderTime: thisOrderData[0].orderTime,
+                    shippingNum: thisOrderData[0].shippingNum[i],
+                    shippingName: shippingData[i].shippingName,
+                    shippingPrice: shippingData[i].shippingPrice,
+                    shippingPic_one: shippingData[i].shippingPic_one,
+                    shippingSp:shippingData[i].shippingSp
+                })
+            }
+        } else {
+            var data = {
+                returnCode: -1,
+                msg: '订单查询失败',
+                data: []
+            }
+        }
+        data = JSON.stringify(data)
+        resp.send(data)
+    }
+}
